@@ -2,14 +2,14 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { add } from "../../store/slice/employeSlice";
-// import { nanoid } from "@reduxjs/toolkit";
+import { nanoid } from "@reduxjs/toolkit";
 function Form() {
   const dispatch = useDispatch();
   const [name, setName] = useState();
   const [title, setTitle] = useState();
   const [mail, setMail] = useState();
   function handleSubmit() {
-    dispatch(add({ name: name, title: title, mail: mail }));
+    dispatch(add({ name: name, title: title, mail: mail, id: nanoid() }));
     console.log("added");
   }
   return (
@@ -25,7 +25,7 @@ function Form() {
               className="form-control"
               onChange={(e) => setName(e.target.value)}
             />
-            <label className="form-label" for="form4Example1">
+            <label className="form-label" htmlFor="form4Example1">
               Name
             </label>
           </div>
@@ -38,7 +38,7 @@ function Form() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            <label className="form-label" for="form4Example3">
+            <label className="form-label" htmlFor="form4Example3">
               Title
             </label>
           </div>
@@ -50,7 +50,7 @@ function Form() {
               value={mail}
               onChange={(e) => setMail(e.target.value)}
             />
-            <label className="form-label" for="form4Example2">
+            <label className="form-label" htmlFor="form4Example2">
               Email address
             </label>
           </div>

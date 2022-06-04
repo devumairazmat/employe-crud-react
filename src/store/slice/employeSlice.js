@@ -8,7 +8,10 @@ const employSlice = createSlice({
       state.value = [...state.value, action.payload];
       console.log(state.value);
     },
-    remove: (state, action) => {},
+    remove: (state, action) => {
+      //   state.value.splice(action.payload, 1);
+      state.value = state.value.filter((item) => item.id !== action.payload);
+    },
     update: (state, action) => {},
   },
 });
