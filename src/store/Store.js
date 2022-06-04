@@ -1,7 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-
+import employSlice from "./slice/employeSlice";
 const Store = configureStore({
-  reducer: {},
+  reducer: {
+    employe: employSlice,
+  },
 });
 
 export default Store;

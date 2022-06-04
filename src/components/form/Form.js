@@ -1,7 +1,11 @@
 import React from "react";
 
 function Form() {
-  return <div>Form</div>;
+  return (
+    <>
+      <div className="container"></div>
+    </>
+  );
 }
 
 export default Form;
