@@ -1,16 +1,42 @@
 import React from "react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { add } from "../../store/slice/employeSlice";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { add, update } from "../../store/slice/employeSlice";
 import { nanoid } from "@reduxjs/toolkit";
 function Form() {
+  const updateData = useSelector((state) => state.employe.updateData);
   const dispatch = useDispatch();
   const [name, setName] = useState();
   const [title, setTitle] = useState();
   const [mail, setMail] = useState();
+  const [updatee, setUpdatee] = useState(false);
+  useEffect(() => {
+    if (updateData.length > 0) {
+      handleLoad();
+    }
+  }, [updateData]);
+  const handleLoad = () => {
+    setUpdatee(true);
+    setName(updateData[0].name);
+    setTitle(updateData[0].title);
+    setMail(updateData[0].mail);
+  };
+
+  const handleUpdate = () => {
+    dispatch(
+      update({ name: name, title: title, mail: mail, id: updateData[0].id })
+    );
+    setUpdatee(false);
+    setName("");
+    setTitle("");
+    setMail("");
+  };
+
   function handleSubmit() {
     dispatch(add({ name: name, title: title, mail: mail, id: nanoid() }));
-    console.log("added");
+    setName("");
+    setTitle("");
+    setMail("");
   }
   return (
     <>
@@ -54,12 +80,11 @@ function Form() {
               Email address
             </label>
           </div>
-
           <button
             className="btn btn-primary btn-block mb-4"
-            onClick={handleSubmit}
+            onClick={updatee ? handleUpdate : handleSubmit}
           >
-            Send
+            {updatee ? "Update" : "Send"}
           </button>
         </div>
       </div>

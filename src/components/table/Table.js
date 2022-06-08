@@ -1,12 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { remove } from "../../store/slice/employeSlice";
+import { remove, load } from "../../store/slice/employeSlice";
 function Table() {
   const dispatch = useDispatch();
   const employe = useSelector((state) => state.employe.value);
-  console.log(employe);
-  function handleUpdate() {}
+  function handleUpdate(payload) {
+    dispatch(load(payload));
+  }
   function handleRemove(id) {
     dispatch(remove(id));
   }
@@ -47,7 +48,7 @@ function Table() {
                     <button
                       type="button"
                       className="btn btn-link btn-sm btn-rounded mx-2"
-                      onClick={handleUpdate}
+                      onClick={() => handleUpdate(item)}
                     >
                       Edit
                     </button>
